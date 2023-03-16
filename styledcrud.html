@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    
+
+    <head>
+
+        <meta charset="utf-8">
+        <title>crud</title>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.1/purify.min.js"></script>
+        <link rel="stylesheet" href="style/crud.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+
+    <body>
+        <div id = "lefthalf"><h1>Store blogs here!</h1>
+            <button id="add">Add</button>
+            <button id="check">Check Array</button></div>
+        
+        <div id = "center">
+        <dialog id = "a1">
+            <p>Add Blog Post</p>
+            <form method ="dialog">
+                <label for="t">Title</label>
+                <textarea id="t"></textarea>
+                <hr>
+                <label for="d">Date</label>
+                <input type="date" id="d">
+                <hr>
+                <label for="s">Summary</label>
+                <textarea id="s"></textarea>
+                <hr>
+                <button id = "oka">OK</button>
+                <button id = "ca">Cancel</button>
+            </form>
+        </dialog>
+        </div>
+
+        <ul id = "blogs">
+
+        </ul>
+
+        <script src="styledblog.js"></script>
+
+    </body>
+    
+</html>

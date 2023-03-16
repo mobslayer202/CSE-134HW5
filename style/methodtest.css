@@ -1,0 +1,11 @@
+label {display:block;}
+button {display:block;}
+
+body {
+    text-align: center;
+    display:flex;
+    flex-direction:column;
+}
+form {
+    display: inline-block;
+}

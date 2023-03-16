@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <title>HW5 Part 1</title>
+    <link rel="stylesheet" href="style/methodtest.css">
+</head>
+
+<body>
+
+    <form id = "form">
+        <label for="id">ID:</label>
+        <input type="number" id="id" name="id"></input>
+
+        <label for="article_name">Article Name:</label>
+        <input type="text" id="article_name" name="article_name"></input>
+
+        <label for="article_body">Article Body:</label>
+        <textarea id="article_body" name="article_body"></textarea>
+
+        <label for="date">Current Date:</label>
+        <input type="text" id="date" disabled>
+
+        <button id="postBtn">POST</button>
+        <button id="getBtn">GET</button>
+        <button id="putBtn">PUT</button>
+        <button id="delBtn">DELETE</button>
+    </form>
+
+    <output id="response"><textarea id="responsetext"  disabled></textarea></output>
+
+    <button id="fx"></button>
+
+    <script>
+
+        
+        document.getElementById("date").value = new Date().toDateString();
+
+        var fx = 0;
+        document.getElementById("fx").addEventListener('click', flag);
+        document.getElementById("fx").innerHTML = "Mode: fetch";
+        function flag(){
+            fx = 1 - fx;
+
+            if(fx == 1){
+                document.getElementById("fx").innerHTML = "Mode: XMLHttpRequest";
+            }
+            else{
+                document.getElementById("fx").innerHTML = "Mode: fetch";
+            }
+        }
+        //window.addEventListener('DOMContentLoaded', init);
+
+        /*function init(){
+            let form;
+            let post;
+            let get;
+            let put;
+            let del;
+
+            form = document.getElementById('form');
+            post = document.getElementById('postBtn').addEventListener('click', post);
+
+        }*/
+
+        const form = document.getElementById('form');
+
+        document.getElementById('postBtn').addEventListener('click', function (e){
+
+            e.preventDefault();
+
+            let formd = new FormData(form);
+
+            if(fx == 0){
+                let payload = new URLSearchParams(formd);
+
+            fetch('https://httpbin.org/post', {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: payload,
+            }).then(res => res.json())
+              .then(data => output(data))
+              .catch(error => console.log(error));
+
+            }
+
+            else{
+                console.log("XML");
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST",'https://httpbin.org/post', true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    let data = JSON.parse(xhr.response);
+                    output(data);
+                }
+            }
+            let body = Object.fromEntries(formd.entries());
+            body = JSON.stringify(body);
+            xhr.send(body);
+            }
+        });
+
+        document.getElementById('putBtn').addEventListener('click', function (e){
+
+            e.preventDefault();
+
+            let formd = new FormData(form);
+
+            if(fx == 0){
+                let payload = new URLSearchParams(formd);
+
+            fetch('https://httpbin.org/put', {
+                method: 'PUT',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: payload,
+            }).then(res => res.json())
+                .then(data => output(data))
+                .catch(error => console.log(error));
+            }
+
+            else{
+                console.log("XML");
+            let xhr = new XMLHttpRequest();
+            xhr.open("PUT",'https://httpbin.org/put', true);
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    let data = JSON.parse(xhr.response);
+                    output(data);
+                }
+            }
+            let body = Object.fromEntries(formd.entries());
+            body = JSON.stringify(body);
+            xhr.send(body);
+            }
+        });
+
+        document.getElementById('getBtn').addEventListener('click', function (e){
+
+            e.preventDefault();
+
+            let formd = new FormData(form);
+
+
+            let payload = new URLSearchParams(formd);
+
+            if (fx == 0){
+            fetch('https://httpbin.org/get'+'?'+payload, {
+                method: 'GET',
+                mode: 'cors',
+
+            }).then(res => res.json())
+              .then(data => output(data))
+              .catch(error => console.log(error));
+            }
+
+            else{
+                console.log("XML");
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET",'https://httpbin.org/get'+'?'+payload, true);
+            
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    let data = JSON.parse(xhr.response);
+                    output(data);
+                }
+            }
+            xhr.send();
+            }
+        });
+
+        document.getElementById('delBtn').addEventListener('click', function (e){
+
+            e.preventDefault();
+
+            let formd = new FormData(form);
+
+
+            let payload = new URLSearchParams(formd);
+
+            if (fx == 0){
+            fetch('https://httpbin.org/delete'+'?'+payload, {
+                method: 'DELETE',
+                mode: 'cors',
+
+            }).then(res => res.json())
+                .then(data => output(data))
+                .catch(error => console.log(error));
+
+            }
+
+            else{
+                console.log("XML");
+            let xhr = new XMLHttpRequest();
+            xhr.open("DELETE",'https://httpbin.org/delete'+'?'+payload, true);
+            
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    let data = JSON.parse(xhr.response);
+                    output(data);
+                }
+            }
+            xhr.send();
+            }
+        });
+
+        function output(data){
+            let result = JSON.stringify(data,undefined,4);
+            let textarea = document.getElementById('responsetext');
+            textarea.value = result;
+            let hw = heightWidth(result);
+            //textarea.style.height = hw[0];
+            //textarea.style.width = hw[1];
+            textarea.setAttribute('rows',hw[0]);
+            textarea.setAttribute('cols',hw[1])
+        }
+
+        function heightWidth(string){
+            let arr = string.split('\n');
+            let height = arr.length;
+            let width = 1;
+            for (let i = 0; i < arr.length; i++){
+                if(arr[i].length > width){
+                    width = arr[i].length;
+                }
+            }
+            return [height,width];
+        }
+        
+
+        /*function post(e){
+
+            e.preventDefault();
+
+            const formd = new FormData(form);
+            //console.log("1");
+            //console.log(formd);
+
+            const payload = new URLSearchParams(formd);
+            //console.log("2");
+            //console.log(payload);
+
+
+            //let response = await fetch('https://httpbin.org/post', {
+            fetch('https://httpbin.org/post', {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: payload,
+            }).then(res => res.json())
+              .then(data => console.log(data))
+              .catch(error => console.log(error));
+
+        }*/
+    </script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <title>part2dialogs</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.1/purify.min.js"></script>
+    
+</head>
+<body>
+
+    <button id="alert">Alert</button>
+    <button id="confirm">Confirm</button>
+    <button id="prompt">Prompt</button>
+
+    <output id="output">
+
+    </output>
+
+    <dialog id = "a1">
+        <p>Alert!</p>
+        <form method ="dialog">
+            <button>OK</button>
+        </form>
+    </dialog>
+
+    <dialog id = "C1">
+        <p>Confirm!</p>
+        <form method ="dialog">
+            <button id = "okc">OK</button>
+            <button id = "cc">Cancel</button>
+        </form>
+    </dialog>
+
+    <dialog id = "p1">
+
+        <form method ="dialog">
+            <label for="response">Respond</label>
+            <textarea id="response"></textarea>
+            <button id = "okp">OK</button>
+            <button id = "cp">Cancel</button>
+        </form>
+    </dialog>
+    <script src="customdialog.js"></script>
+</body>
+
+</html>

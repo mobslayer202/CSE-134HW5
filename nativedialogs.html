@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <title>nativedialogs</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.1/purify.min.js"></script>
+    
+
+
+
+    </script>
+
+</head>
+<body>
+
+    <button id="alert">Alert</button>
+    <button id="confirm">Confirm</button>
+    <button id="prompt">Prompt</button>
+    <button id="sp">Safer Prompt</button>
+
+    <output id="output"></output>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.1/purify.min.js"></script>
+    <script>
+        
+
+        document.getElementById('alert').addEventListener("click", () => alert("alert"));
+        document.getElementById('confirm').addEventListener('click', f2);
+        document.getElementById('prompt').addEventListener('click', f3);
+        document.getElementById('sp').addEventListener('click', f4);
+
+        /*function f1(){
+            alert("alert");
+        }*/
+
+        //f1 = () => alert("alert");
+
+        function f2(){
+            let value = confirm("confirm");
+            document.getElementById("output").innerHTML = `The value returned by the confirm method is : ${String(value)}`;
+        }
+
+        function f3(){
+            let a = prompt("write stuff");
+            if(a == null){
+                document.getElementById("output").innerHTML = "User didn't enter anything";
+            }
+            else{
+                document.getElementById("output").innerHTML = `Prompt result : ${String(a)}`;
+            }
+        }
+
+        
+        function f4(){
+            let dirty = prompt("write stuff2");
+            if(dirty == null){
+                document.getElementById("output").innerHTML = "User didn't enter anything";
+            }
+            else{
+                let clean = DOMPurify.sanitize(dirty);
+                document.getElementById("output").innerHTML = `Prompt result : ${String(clean)}`;
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+

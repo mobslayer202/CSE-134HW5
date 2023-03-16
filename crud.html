@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    
+
+    <head>
+
+        <meta charset="utf-8">
+        <title>crud</title>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.1/purify.min.js"></script>
+    </head>
+
+    <body>
+
+        <button id="add">Add</button>
+        <button id="check">Check Array</button>
+
+        <dialog id = "a1">
+            <p>Add Blog Post</p>
+            <form method ="dialog">
+                <label for="t">Title</label>
+                <textarea id="t"></textarea>
+
+                <label for="d">Date</label>
+                <input type="date" id="d">
+
+                <label for="s">Summary</label>
+                <textarea id="s"></textarea>
+
+                <button id = "oka">OK</button>
+                <button id = "ca">Cancel</button>
+            </form>
+        </dialog>
+
+        <ul id = "blogs">
+
+        </ul>
+
+        <script src="blog.js"></script>
+
+    </body>
+    
+</html>
